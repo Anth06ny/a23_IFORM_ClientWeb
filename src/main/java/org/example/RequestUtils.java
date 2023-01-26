@@ -86,7 +86,7 @@ public class RequestUtils {
         }
     }
 
-    public static String sendPost(String url, String jsonAEnvoyer ) throws Exception {
+    public static String sendPost(String url, String jsonAEnvoyer) throws Exception {
         System.out.println("url : " + url);
         OkHttpClient client = new OkHttpClient();
 
