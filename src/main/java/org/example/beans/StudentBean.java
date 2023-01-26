@@ -13,6 +13,14 @@ public class StudentBean {
         this.note = note;
     }
 
+    @Override
+    public String toString() {
+        return "StudentBean{" +
+                "name='" + name + '\'' +
+                ", note=" + note +
+                '}';
+    }
+
     public String getName() {
         return name;
     }

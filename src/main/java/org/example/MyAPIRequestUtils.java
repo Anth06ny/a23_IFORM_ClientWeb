@@ -5,22 +5,30 @@ import org.example.beans.StudentBean;
 
 public class MyAPIRequestUtils {
 
+
     private static final String URL_MY_API = "http://localhost:8080";
 
     public static void main(String[] args) throws Exception {
+        System.out.println(increment(new StudentBean("Toto", 14)));
 
-//        int max = max(7,8);
-//        System.out.println("max=" + max);
+    }
 
-//        StudentBean studentBean = createStudent("Toto", 12);
-//
-//        System.out.println(studentBean.getName() + " a eu " + studentBean.getNote());
+    /* -------------------------------- */
+    // EXO POST
+    /* -------------------------------- */
 
-        saveStudent("bb", "12");
+    public static void sendStudent(StudentBean student) throws Exception {
+        String json = new Gson().toJson(student);
+        RequestUtils.sendPost(URL_MY_API + "/receiveStudent", json);
+    }
 
-        StudentBean studentBean = loadStudent();
-        System.out.println(studentBean.getName() + " " + studentBean.getNote()) ;
+    public static StudentBean increment(StudentBean studentToSend) throws Exception {
 
+        //Envoie
+        String jsonToSend = new Gson().toJson(studentToSend);
+        String jsonReceive = RequestUtils.sendPost(URL_MY_API + "/increment", jsonToSend);
+        StudentBean studentReceive = new Gson().fromJson(jsonReceive, StudentBean.class);
+        return studentReceive;
     }
 
     /* -------------------------------- */
@@ -32,7 +40,7 @@ public class MyAPIRequestUtils {
         RequestUtils.sendGet(URL_MY_API + "/saveStudent?nom=" + name + "&note=" + note);
     }
 
-    public static StudentBean loadStudent() throws Exception{
+    public static StudentBean loadStudent() throws Exception {
         String json = RequestUtils.sendGet(URL_MY_API + "/loadStudent");
         StudentBean student = new Gson().fromJson(json, StudentBean.class);
 
@@ -41,10 +49,11 @@ public class MyAPIRequestUtils {
     }
 
     /* -------------------------------- */
-    // Exo
+    // Exo GET
     /* -------------------------------- */
 
-    public static StudentBean createStudent(String name , int note) throws Exception{
+    public static StudentBean createStudent(String name, int note) throws Exception {
+
         String json = RequestUtils.sendGet(URL_MY_API + "/createStudent?nom=" + name + "&note=" + note);
         StudentBean student = new Gson().fromJson(json, StudentBean.class);
 
@@ -52,12 +61,11 @@ public class MyAPIRequestUtils {
 
     }
 
-    public static int max(int a, int b) throws Exception{
+    public static int max(int a, int b) throws Exception {
         String reponse = RequestUtils.sendGet(URL_MY_API + "/max?p1=" + a + "&p2=" + b);
 
-         return Integer.parseInt(reponse);
+        return Integer.parseInt(reponse);
     }
-
 
 
     public static void test() throws Exception {
