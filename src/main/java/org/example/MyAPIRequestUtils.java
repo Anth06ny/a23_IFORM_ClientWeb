@@ -6,7 +6,7 @@ import org.example.beans.StudentBean;
 public class MyAPIRequestUtils {
 
 
-    private static final String URL_MY_API = "http://localhost:8080";
+    public static final String URL_MY_API = "http://localhost:8080";
 
     public static void main(String[] args) throws Exception {
         System.out.println(increment(new StudentBean("Toto", 14)));
